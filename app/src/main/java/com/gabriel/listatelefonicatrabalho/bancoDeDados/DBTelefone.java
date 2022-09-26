@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gabriel.listatelefonicatrabalho.entidades.Telefone;
+
 import java.util.List;
 
 public class DBTelefone {
@@ -19,8 +21,8 @@ public class DBTelefone {
 
         ContentValues valores = new ContentValues();
         valores.put("nome", telefone.getNome());
-        valores.put("dataNascimento", telefone.getDataNascimento());
         valores.put("telefone", telefone.getTelefone());
+        valores.put("dataNascimento", telefone.getDataNascimento());
 
         conexao.insertOrThrow("listaTelefonica", null, valores);
 
@@ -32,8 +34,8 @@ public class DBTelefone {
 
         ContentValues valores = new ContentValues();
         valores.put("nome", telefone.getNome());
-        valores.put("dataNascimento", telefone.getDataNascimento());
         valores.put("telefone", telefone.getTelefone());
+        valores.put("dataNascimento", telefone.getDataNascimento());
 
         conexao.update("listaTelefonica", valores, "id=?", new String[]{telefone.getId().toString()});
 
@@ -52,7 +54,7 @@ public class DBTelefone {
         listaTelefonica.clear();
         conexao = db.getReadableDatabase();
 
-        String colunas[] = {"id", "nome", "dataNascimento", "telefone"};
+        String colunas[] = {"id", "nome", "telefone", "dataNascimento"};
         Cursor query = conexao.query("listaTelefonica", colunas, null, null, null, null, "nome");
 
         while (query.moveToNext()) {
@@ -60,8 +62,8 @@ public class DBTelefone {
 
             telefone.setId(Integer.parseInt(query.getString(0)));
             telefone.setNome(query.getString(1));
-            telefone.setDataNascimento(query.getString(2));
-            telefone.setTelefone(query.getString(3));
+            telefone.setTelefone(query.getString(2));
+            telefone.setDataNascimento(query.getString(3));
 
             listaTelefonica.add(telefone);
         }
